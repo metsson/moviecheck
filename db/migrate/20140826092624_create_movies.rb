@@ -6,6 +6,8 @@ class CreateMovies < ActiveRecord::Migration
         t.float :score, null: false
         t.integer :probability, null: false
         t.string :poster, default: 'default.jpg'
+        t.string :title, null: false
+        t.text :plot
         t.timestamps
     end
         # Index imdb ID as the movies are often searched by this

@@ -11,15 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140826174422) do
+ActiveRecord::Schema.define(version: 20140904165555) do
 
-  create_table "actor_genres", force: true do |t|
+  create_table "actor_movies", force: true do |t|
     t.integer "actor_id"
-    t.integer "genre_id"
+    t.integer "movie_id"
   end
 
   create_table "actors", force: true do |t|
     t.string "name"
+  end
+
+  create_table "genre_movies", force: true do |t|
+    t.integer "genre_id"
+    t.integer "movie_id"
   end
 
   create_table "genres", force: true do |t|
@@ -32,6 +37,8 @@ ActiveRecord::Schema.define(version: 20140826174422) do
     t.float    "score",                               null: false
     t.integer  "probability",                         null: false
     t.string   "poster",      default: "default.jpg"
+    t.string   "title",                               null: false
+    t.text     "plot"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
