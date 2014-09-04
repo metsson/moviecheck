@@ -1,4 +1,4 @@
 class Movie < ActiveRecord::Base
-    has_many :actors, through: :actor_movies
-    has_many :genres, through: :genre_movies    
+    has_and_belongs_to_many :genre
+    has_and_belongs_to_many :actors
 end

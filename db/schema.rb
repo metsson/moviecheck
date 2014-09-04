@@ -13,7 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20140904165555) do
 
-  create_table "actor_movies", force: true do |t|
+  create_table "actor_movies", id: false, force: true do |t|
     t.integer "actor_id"
     t.integer "movie_id"
   end
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20140904165555) do
     t.string "name"
   end
 
-  create_table "genre_movies", force: true do |t|
+  create_table "genre_movies", id: false, force: true do |t|
     t.integer "genre_id"
     t.integer "movie_id"
   end

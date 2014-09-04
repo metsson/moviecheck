@@ -1,8 +1,8 @@
 class AddGenreMovieJointTable < ActiveRecord::Migration
   def change
-    create_table :genre_movies do |t|
-        t.belongs_to :genre
-        t.belongs_to :movie
+    create_table :genre_movies, :id => false do |t|
+        t.references :genre
+        t.references :movie
     end
   end
 end
