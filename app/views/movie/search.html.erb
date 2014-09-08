@@ -1,0 +1,11 @@
+<% content_for :title, "Movie rating results for '#{@search_term}' on" %>
+
+<h3>Ratings for movies named <em>'<%= link_to "#{@search_term}", search_movie_path(@search_term) %>'</em></h3>
+
+<% for result in @results['Search'] %>
+    <% if result['Type'] == 'movie' %>
+    <p>
+        <%= link_to "#{result['Title']} (#{result['Year']})", show_movie_path(result['Title'].parameterize, result['imdbID']) %>
+    </p>
+    <% end %>
+<% end %>
