@@ -1,24 +1,42 @@
 <% if @movie %>
+<% content_for :title, "Here's a better rating for '#{@movie.title} (#{@movie.year})' found on" %>
 <h3><%= @movie.title %> <small>(<%= @movie.year %>)</small></h3>
 <p><%= @movie.score %> out of 10</p>
 <p>Rating safety <%= @movie.probability %>%</p>
 <p><%= @movie.plot %></p>
 <ul>
+    What's next
     <li><a href="http://www.youtube.com/results?search_query=trailer+<%= @movie.title %>" target="_blank">See trailer</a></li>
     <li><a href="http://www.netflix.com/Search?lnkctr=metss9002s&v1=<%= @movie.title %>" target="_blank">Watch on Netflix</a></li>
 </ul>
 <ul>
     Cast
     <% for actor in @movie.actors do %>
-        <li><%= actor.name %></li>
+        <li>
+            <%= link_to "#{actor.name}", appears_in_path(actor.name.parameterize, actor.id) %>
+            (<%= actor.movies.size %>)
+        </li>
     <% end %>
 </ul>
 <ul>
     Genres
     <% for genre in @movie.genres do %>
-        <li><%= genre.genre %></li>
+        <li>
+            <%= link_to "#{genre.genre}", movies_by_genre_path(genre.genre.parameterize, genre.id) %>
+            (<%= genre.movies.size %>)
+        </li>
     <% end %>
 </ul>
+<% if @suggestions and @suggestions.size > 0 %>
+    <ul>
+        Similar movies
+        <% for suggestion in @suggestions %>
+            <li>
+                <%= link_to "#{suggestion.title} (#{suggestion.year})", show_movie_path(suggestion.title.parameterize, suggestion.imdb) %>
+            </li>
+        <% end %>
+    </ul>
+<% end %>
 <% else %>
 <p>Something went completely wrong!</p>
 <% end %>

@@ -9,6 +9,11 @@ class MovieController < ApplicationController
     # movies/:title/:imdbid
     def show
         @movie = Movie.get_rating!(params[:imdbid])
+
+        if @movie
+            @suggestions = Movie.where("title LIKE ? OR plot LIKE ?", "%#{@movie.title}%", "%#{@movie.plot}%")
+            @suggestions.pop(@movie.id)
+        end
     end
 
     # /search/:keyword
