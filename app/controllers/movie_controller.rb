@@ -3,7 +3,7 @@ require 'open-uri'
 class MovieController < ApplicationController
 
     def index
-        @movies = Movie.paginate(:page => params[:page])
+        @movies = Movie.paginate(:page => params[:page]).order('title ASC')
     end
 
     # movies/:title/:imdbid

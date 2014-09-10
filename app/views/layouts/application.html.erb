@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <title><%= yield(:title) %> filmcheck</title>
+  <meta charset="utf-8">
   <%= stylesheet_link_tag    "application", media: "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+<div id="loading"></div>
 <h1>filmcheck
     <small>gathering better ratings for thousands of movies</small>
 </h1>
@@ -23,6 +25,13 @@
         </li>
     </ul>
 </nav>
+<!-- Search form -->
+<form method="get" action="/search/" id="search-form" onsubmit="return false;">
+<input type="search" name="keyword" placeholder="Search for movie ratings" />
+</form>
+<!-- Search form -->
+<!-- Main content -->
 <%= yield %>
+<!-- Main content -->
 </body>
 </html>
