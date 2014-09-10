@@ -1,10 +1,24 @@
 <% if @movie %>
 <h3><%= @movie.title %> <small>(<%= @movie.year %>)</small></h3>
+<p><%= @movie.score %> out of 10</p>
+<p>Rating safety <%= @movie.probability %>%</p>
 <p><%= @movie.plot %></p>
 <ul>
     <li><a href="http://www.youtube.com/results?search_query=trailer+<%= @movie.title %>" target="_blank">See trailer</a></li>
     <li><a href="http://www.netflix.com/Search?lnkctr=metss9002s&v1=<%= @movie.title %>" target="_blank">Watch on Netflix</a></li>
-</li>
+</ul>
+<ul>
+    Cast
+    <% for actor in @movie.actors do %>
+        <li><%= actor.name %></li>
+    <% end %>
+</ul>
+<ul>
+    Genres
+    <% for genre in @movie.genres do %>
+        <li><%= genre.genre %></li>
+    <% end %>
+</ul>
 <% else %>
 <p>Something went completely wrong!</p>
 <% end %>
