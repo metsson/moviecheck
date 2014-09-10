@@ -10,6 +10,19 @@
 <h1>filmcheck
     <small>gathering better ratings for thousands of movies</small>
 </h1>
+<nav>
+    <ul>
+        <li>
+            <%= link_to "All movies", root_path %>
+        </li>
+        <li>
+            <%= link_to "Genres", all_genres_path %>
+        </li>
+        <li>
+            <%= link_to "Actors", all_actors_path %>
+        </li>
+    </ul>
+</nav>
 <%= yield %>
 </body>
 </html>

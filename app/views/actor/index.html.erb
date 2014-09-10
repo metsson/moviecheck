@@ -1,0 +1,18 @@
+<% content_for :title, 'List of movies by appeareances on' %>
+<h3>List of movies by appeareances</h3>
+
+<% for actor in @actors %>
+    <ul>
+        <h4>
+            <%= actor.name %> (<%= actor.movies.size %>)
+            <% if actor.movies.size > 10 %>
+                <%= link_to "Show all", appears_in_path(actor.name.parameterize, actor.id) %>
+            <% end %>
+        </h4>
+        <% for movie in actor.movies.take(10) %>
+            <li>
+                <%= link_to "#{movie.title} (#{movie.year})", show_movie_path(movie.title.parameterize, movie.imdb) %>
+            </li>
+        <% end %>
+    </ul>
+<% end %>

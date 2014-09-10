@@ -1,0 +1,10 @@
+<% content_for :title, 'List of all movies on ' %>
+<h3>List of all movies with great ratings, there are <%= @movies.size %> of them!</h3>
+
+<ul>
+<% for movie in @movies %>
+    <li>
+        <%= link_to "#{movie.title}", show_movie_path(movie.title.parameterize, movie.imdb) %>
+    </li>
+<% end %>
+</ul>

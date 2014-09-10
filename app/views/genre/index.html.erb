@@ -1,0 +1,18 @@
+<% content_for :title, 'List of movies by genre on' %>
+<h3>List of movies by genres</h3>
+
+<% for genre in @genres %>
+    <ul>
+        <h4>
+            <%= genre.genre %> (<%= genre.movies.size %>)
+            <% if genre.movies.size > 10 %>
+                <%= link_to "Show all", movies_by_genre_path(genre.genre.parameterize, genre.id) %>
+            <% end %>
+        </h4>
+        <% for movie in genre.movies.take(10) %>
+            <li>
+                <%= link_to "#{movie.title} (#{movie.year})", show_movie_path(movie.title.parameterize, movie.imdb) %>
+            </li>
+        <% end %>
+    </ul>
+<% end %>
