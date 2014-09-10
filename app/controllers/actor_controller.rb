@@ -1,6 +1,6 @@
 class ActorController < ApplicationController
     def index
-        @actors = Actor.all
+        @actors = Actor.paginate(:page => params[:page])
     end
 
     def show

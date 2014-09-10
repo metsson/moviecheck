@@ -1,6 +1,6 @@
 class GenreController < ApplicationController
     def index
-        @genres = Genre.all
+        @genres = Genre.paginate(:page => params[:page])
     end
 
     def show
