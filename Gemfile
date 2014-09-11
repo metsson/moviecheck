@@ -22,6 +22,7 @@ gem 'will_paginate'
 
 # Le style
 gem 'twitter-bootstrap-rails'
+gem 'rails-bootstrap-toggle-buttons'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

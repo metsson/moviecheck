@@ -1,5 +1,6 @@
 <% content_for :title, 'List of all movies on ' %>
-<h3>List of all movies with great ratings, there are <%= @movies.size %> of them!</h3>
+<% content_for :page_header, "List of all movies with great ratings" %>
+<% content_for :page_header_small, " #{@movies.size} and counting!" %>
 
 <ul>
 <% for movie in @movies %>

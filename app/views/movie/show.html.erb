@@ -1,6 +1,8 @@
 <% if @movie %>
 <% content_for :title, "Here's a better rating for '#{@movie.title} (#{@movie.year})' found on" %>
-<h3><%= @movie.title %> <small>(<%= @movie.year %>)</small></h3>
+<% content_for :page_header, "#{@movie.title}" %>
+<% content_for :page_header_small, " (#{@movie.year})" %>
+
 <p><%= @movie.score %> out of 10</p>
 <p>Rating safety <%= @movie.probability %>%</p>
 <p><%= @movie.plot %></p>

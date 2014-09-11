@@ -1,6 +1,6 @@
 <% if @genre %>
 <% content_for :title, "#{@genre.genre} movies on" %>
-<h3>List of <%= @genre.genre.downcase %> movies on filmcheck</h3>
+<% content_for :page_header, "Showing #{@genre.genre.downcase} movies" %>
 <ul>
  <% for movie in @genre.movies %>
     <li>
@@ -8,5 +8,5 @@
     </li>
 <% end %>
 <% else %>
-<p>Shit hit the fan! The actor you searched for does not exist...</p>
+<p>Shit hit the fan! The genre you searched for does not exist...</p>
 <% end %>

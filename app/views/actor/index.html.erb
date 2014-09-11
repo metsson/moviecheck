@@ -1,5 +1,6 @@
 <% content_for :title, 'List of movies by appeareances on' %>
-<h3>List of movies by appeareances</h3>
+<% content_for :page_header, "Showing all actors" %>
+<% content_for :page_header_small, " (by appeareances)" %>
 <% for actor in @actors %>
     <ul>
         <h4>

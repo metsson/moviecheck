@@ -13,12 +13,13 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
+//= require bootstrap-toggle-buttons
 //= require_tree .
 
 $(document).ready(function () {
 
     $("#search-form").on('submit', function(form) {
-        window.location.href = $('input[name="keyword"]', $(this)).val();
+        window.location.href = '/search/' + $('input[name="keyword"]', $(this)).val();
         return false;
     })
 })
