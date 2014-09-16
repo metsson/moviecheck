@@ -1,10 +1,12 @@
 <% content_for :title, "Movie rating results for '#{@search_term}' on" %>
-<% content_for :page_header, "Ratings for movies named '#{@search_term}'" %>
 
-<% for result in @results['Search'] %>
-    <% if result['Type'] == 'movie' %>
-    <p>
-        <%= link_to "#{result['Title']} (#{result['Year']})", show_movie_path(result['Title'].parameterize, result['imdbID']) %>
-    </p>
-    <% end %>
-<% end %>
+<h2>Ratings for movies named '<%= @search_term %>'</h2>
+<div class="content">
+    <div class="movie-listing">
+        <% for result in @results['Search'] %>
+            <% if result['Type'] == 'movie' %>
+                <%= link_to "#{result['Title']} (#{result['Year']})", show_movie_path(result['Title'].parameterize, result['imdbID']), :class => 'movie-listing-item' %>
+            <% end %>
+        <% end %>
+    </div>
+</div>

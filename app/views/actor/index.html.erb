@@ -1,14 +1,17 @@
 <% content_for :title, 'List of movies by appeareances on' %>
-<% content_for :page_header, "Showing all actors" %>
-<% content_for :page_header_small, " (by appeareances)" %>
+
+<h2>Movies by appearances</h2>
+<div class="content">
+    <div class="misc-listing">
 <% for actor in @actors %>
-    <ul>
-        <h4>
+
+    <ul class="list-inline">
+        <span class="list-subtitle">
             <%= actor.name %> (<%= actor.movies.size %>)
             <% if actor.movies.size > 10 %>
-                <%= link_to "Show all", appears_in_path(actor.name.parameterize, actor.id) %>
+                <%= link_to "Show all", appears_in_path(actor.genre.parameterize, actor.id) %>
             <% end %>
-        </h4>
+        </span>
         <% for movie in actor.movies.take(10) %>
             <li>
                 <%= link_to "#{movie.title} (#{movie.year})", show_movie_path(movie.title.parameterize, movie.imdb) %>
@@ -16,5 +19,7 @@
         <% end %>
     </ul>
 <% end %>
+    </div>
+</div>
 
-<% will_paginate @actors %>
+<% will_paginate @actors, :page_links => false %>

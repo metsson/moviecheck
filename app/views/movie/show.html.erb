@@ -1,44 +1,60 @@
 <% if @movie %>
 <% content_for :title, "Here's a better rating for '#{@movie.title} (#{@movie.year})' found on" %>
-<% content_for :page_header, "#{@movie.title}" %>
-<% content_for :page_header_small, " (#{@movie.year})" %>
 
-<p><%= @movie.score %> out of 10</p>
-<p>Rating safety <%= @movie.probability %>%</p>
-<p><%= @movie.plot %></p>
-<ul>
-    What's next
-    <li><a href="http://www.youtube.com/results?search_query=trailer+<%= @movie.title %>" target="_blank">See trailer</a></li>
-    <li><a href="http://www.netflix.com/Search?lnkctr=metss9002s&v1=<%= @movie.title %>" target="_blank">Watch on Netflix</a></li>
-</ul>
-<ul>
-    Cast
-    <% for actor in @movie.actors do %>
-        <li>
-            <%= link_to "#{actor.name}", appears_in_path(actor.name.parameterize, actor.id) %>
-            (<%= actor.movies.size %>)
-        </li>
-    <% end %>
-</ul>
-<ul>
-    Genres
-    <% for genre in @movie.genres do %>
-        <li>
-            <%= link_to "#{genre.genre}", movies_by_genre_path(genre.genre.parameterize, genre.id) %>
-            (<%= genre.movies.size %>)
-        </li>
-    <% end %>
-</ul>
-<% if @suggestions and @suggestions.size > 0 %>
-    <ul>
-        Similar movies
-        <% for suggestion in @suggestions %>
-            <li>
-                <%= link_to "#{suggestion.title} (#{suggestion.year})", show_movie_path(suggestion.title.parameterize, suggestion.imdb) %>
-            </li>
+<h2><%= @movie.title %> <small><%= @movie.year %></small></h2>
+<div class="content moviecard">
+    <div class="movie-stats">
+        <img src="http://ia.media-imdb.com/images/M/MV5BMTI4MjExNTU3NF5BMl5BanBnXkFtZTcwMjIzNzQ0MQ@@._V1_SX300.jpg" class="img-responsive">
+        <p>
+        <span class="points"><%= '%.1f' % @movie.score %></span> of 10. Average rating score by
+        <span class="voters">23m</span> users worldwide, <span class="safe"><%= @movie.probability %>%</span> safe.
+        </p>
+    </div>
+    <div class="moviecard-plot">
+        <p><%= @movie.plot %></p>
+    </div>
+    <div class="moviecard-actions">
+        <ul class="list-inline">
+            <span class="btn btn-default disabled btn-sm">Cast</span>
+            <% for actor in @movie.actors do %>
+                <li>
+                <%= link_to "#{actor.name}", appears_in_path(actor.name.parameterize, actor.id) %>
+                </li>
+            <% end %>
+        </ul>
+        <ul class="list-inline">
+            <span class="btn btn-default disabled btn-sm">Genres</span>
+            <% for genre in @movie.genres do %>
+                <li>
+                <%= link_to "#{genre.genre}", movies_by_genre_path(genre.genre.parameterize, genre.id) %>
+                </li>
+            <% end %>
+        </ul>
+        <% if @suggestions %>
+            <ul class="list-inline">
+                <span class="btn btn-default disabled btn-sm">Similar</span>
+                <% for suggestion in @suggestions %>
+                    <li>
+                    <%= link_to "#{suggestion.title} (#{suggestion.year})", show_movie_path(suggestion.title.parameterize, suggestion.imdb) %>
+                    </li>
+                <% end %>
+            </ul>
+            <p>
         <% end %>
-    </ul>
-<% end %>
+        <ul class="list-inline">
+            <span class="btn btn-default disabled">Whats next</span>
+            <li><a href="http://www.imdb.com/title/<%= @movie.imdb %>" target="_blank" class="btn btn-warning">IMDb</a></li>
+            <li><a href="#" class="btn btn-info">Trailers</a></li>
+            <li><a href="http://cdon.se/search?category=1769&amp;q=<%= @movie.title %>" target="_blank" class="btn btn-success">Own it</a></li>
+            <li><a href="http://www.netflix.com/Search?lnkctr=metss9002s&v1=<%= @movie.title %>" target="_blank" class="btn btn-danger">Netflix</a></li>
+        </ul>
+        <ul class="list-inline">
+            <span class="btn btn-default disabled btn-sm">Spread the goodness</span>
+            <li><a href="#">facebook</a></li>
+            <li><a href="#">Twitter</a></li>
+        </ul>
+    </div>
+</div>
 <% else %>
 <p>Something went completely wrong!</p>
 <% end %>

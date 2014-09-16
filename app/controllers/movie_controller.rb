@@ -3,17 +3,16 @@ require 'open-uri'
 class MovieController < ApplicationController
 
     def index
-        @movies = Movie.paginate(:page => params[:page]).order('title ASC')
+        @movies = Movie.where('score > 7').order('score DESC').paginate(:page => params[:page], :per_page => 10)
     end
 
     # movies/:title/:imdbid
     def show
         begin
-        @movie = Movie.get_rating!(params[:imdbid])
+        @movie ||= Movie.get_rating!(params[:imdbid])
 
         if @movie
-            @suggestions = Movie.where("title LIKE ? OR plot LIKE ?", "%#{@movie.title}%", "%#{@movie.plot}%")
-            @suggestions.pop(@movie.id)
+            @suggestions = Movie.where("title LIKE ? OR plot LIKE ?", "%#{@movie.title}%", "%#{@movie.plot}%").take(2)
         end
         rescue
             # Show error message

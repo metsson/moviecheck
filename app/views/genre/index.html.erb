@@ -1,14 +1,18 @@
 <% content_for :title, 'List of movies by genre on' %>
 <% content_for :page_header, "List of movies by genres" %>
 
+<h2>Listing movies by genre</h2>
+<div class="content">
+    <div class="misc-listing">
 <% for genre in @genres %>
-    <ul>
-        <h4>
+
+    <ul class="list-inline">
+        <span class="list-subtitle">
             <%= genre.genre %> (<%= genre.movies.size %>)
             <% if genre.movies.size > 10 %>
                 <%= link_to "Show all", movies_by_genre_path(genre.genre.parameterize, genre.id) %>
             <% end %>
-        </h4>
+        </span>
         <% for movie in genre.movies.take(10) %>
             <li>
                 <%= link_to "#{movie.title} (#{movie.year})", show_movie_path(movie.title.parameterize, movie.imdb) %>
@@ -16,5 +20,7 @@
         <% end %>
     </ul>
 <% end %>
+    </div>
+</div>
 
-<%= will_paginate @genres %>
+<%= will_paginate @genres, :page_links => false%>

@@ -12,8 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require twitter/bootstrap
-//= require bootstrap-toggle-buttons
 //= require_tree .
 
 $(document).ready(function () {

@@ -1,13 +1,13 @@
-<% content_for :title, 'List of all movies on ' %>
-<% content_for :page_header, "List of all movies with great ratings" %>
-<% content_for :page_header_small, " #{@movies.size} and counting!" %>
+<% content_for :title, 'List of top rated movies on ' %>
 
-<ul>
-<% for movie in @movies %>
-    <li>
-        <%= link_to "#{movie.title}", show_movie_path(movie.title.parameterize, movie.imdb) %>
-    </li>
-<% end %>
-</ul>
-
-<%= will_paginate @movies %>
+<h2>Top rated movies</h2>
+<div class="content">
+    <div class="movie-listing">
+        <% for movie in @movies %>
+            <%= link_to show_movie_path(movie.title.parameterize, movie.imdb), :class => 'movie-listing-item' do %>
+            <span class="listing-point"><%= '%.1f' % movie.score %> <em>of 10</em></span> <%= movie.title %>
+            <% end %>
+        <% end %>
+    </div>
+</div>
+<%= will_paginate @movies, :page_links => false%>

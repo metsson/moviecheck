@@ -1,12 +1,14 @@
 <% if @actor %>
-<% content_for :title, "List of appeareances for #{@actor.name} on" %>
-<h3>Appereances for <%= @actor.name %></h3>
-<ul>
- <% for movie in @actor.movies %>
-    <li>
-        <%= link_to "#{movie.title} (#{movie.year})", show_movie_path(movie.title.parameterize, movie.imdb) %>
-    </li>
-<% end %>
+<h2>Appearances for <%= @actor.name %></h2>
+<div class="content">
+    <div class="movie-listing">
+        <% for movie in @actor.movies %>
+            <%= link_to show_movie_path(movie.title.parameterize, movie.imdb), :class => 'movie-listing-item' do %>
+             <span class="listing-point"><%= '%.1f' % movie.score %> <em>of 10</em></span> <%= movie.title %>
+            <% end %>
+        <% end %>
+    </div>
+</div>
 <% else %>
-<p>Shit hit the fan! The actor you searched for does not exist...</p>
+<p>Shit hit the fan! The genre you searched for does not exist...</p>
 <% end %>
