@@ -4,10 +4,10 @@
 <h2><%= @movie.title %> <small><%= @movie.year %></small></h2>
 <div class="content moviecard">
     <div class="movie-stats">
-        <img src="http://ia.media-imdb.com/images/M/MV5BMTI4MjExNTU3NF5BMl5BanBnXkFtZTcwMjIzNzQ0MQ@@._V1_SX300.jpg" class="img-responsive">
+        <img src="<%= @movie.poster %>" class="img-responsive">
         <p>
         <span class="points"><%= '%.1f' % @movie.score %></span> of 10. Average rating score by
-        <span class="voters">23m</span> users worldwide, <span class="safe"><%= @movie.probability %>%</span> safe.
+        <span class="voters"><%= @movie.voters %></span> users worldwide, <span class="safe"><%= @movie.probability %>%</span> safe.
         </p>
     </div>
     <div class="moviecard-plot">
@@ -30,7 +30,7 @@
                 </li>
             <% end %>
         </ul>
-        <% if @suggestions %>
+        <% if @suggestions and @suggestions.size > 1 %>
             <ul class="list-inline">
                 <span class="btn btn-default disabled btn-sm">Similar</span>
                 <% for suggestion in @suggestions %>
@@ -56,5 +56,8 @@
     </div>
 </div>
 <% else %>
-<p>Something went completely wrong!</p>
+<div class="alert alert-warning">
+    <h3>Oh my...</h3>
+    <p>Something went completely wrong! <%= link_to 'Click here', root_path, :class => 'alert-link' %> to get back to start.</p>
+</div>
 <% end %>

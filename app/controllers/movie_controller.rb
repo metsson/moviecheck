@@ -15,7 +15,7 @@ class MovieController < ApplicationController
             @suggestions = Movie.where("title LIKE ? OR plot LIKE ?", "%#{@movie.title}%", "%#{@movie.plot}%").take(2)
         end
         rescue
-            # Show error message
+            # Show (generic) error message in view
         end
     end
 

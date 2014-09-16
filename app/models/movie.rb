@@ -13,17 +13,28 @@ class Movie < ActiveRecord::Base
       @@movie = find_by_imdb(imdbID) || Movie.new
 
       # @todo expire cached data!
-      if @@movie.new_record?
+      if @@movie.new_record? or @@movie.created_at.past?
+
         api_data = JSON.parse open("http://www.omdbapi.com/?i=#{imdbID}&tomatoes=true&plot=full").read
+
 
         if api_data['Response'] == "True"
           @@movie.imdb = api_data['imdbID']
           @@movie.title = api_data['Title']
           @@movie.year = api_data['Year']
-          @@movie.plot = api_data['Plot']
+          @@movie.poster = api_data['Poster']
+
+          if api_data['tomatoConsensus'] and api_data['tomatoConsensus'] != 'N/A'
+            @@movie.plot = api_data['tomatoConsensus']
+          elsif api_data['Plot'] != 'N/A'
+            @@movie.plot = api_data['Plot']
+          else
+            raise 'No plot given, in 9 out of 10 cases this means unsufficent API data - abort'
+          end
 
           set_score_and_probability(api_data)
           set_cast_and_genre(api_data)
+          set_number_of_voters(api_data)
 
           @@movie.save
         else
@@ -62,18 +73,37 @@ class Movie < ActiveRecord::Base
     end
 
   private
+    def self.set_number_of_voters(api_data)
+      voters =
+      [
+        api_data['imdbVotes'].gsub(',','').to_i,
+        api_data['tomatoReviews'].gsub(',','').to_i,
+        api_data['tomatoUserReviews'].gsub(',','').to_i
+      ]
+
+      # Remove falsy voting data
+      voters.delete_if{|voter| voter == 0 or voter == "N/A"}
+
+      @@movie.voters = voters.inject(:+)
+    end
+
+  private
     # Set the many-to-many relationships between movie and genres/actors
     def self.set_cast_and_genre(api_data)
       api_data["Genre"].split(',').each do |genre|
-        genre = Genre.find_or_create_by(genre: genre) unless genre.nil?
-        genre.save
-        @@movie.genres << genre
+        begin
+          @@movie.genres << Genre.find_or_create_by(genre: genre) unless genre.nil?
+        rescue
+          # eat
+        end
       end
 
       api_data["Actors"].split(',').each do |actor|
-        actor = Actor.find_or_create_by(name: actor) unless actor.nil?
-        actor.save
-        @@movie.actors << actor
+        begin
+          @@movie.actors << Actor.find_or_create_by(name: actor) unless actor.nil?
+        rescue
+          # eat
+        end
       end
     end
 end
