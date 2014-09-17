@@ -1,5 +1,5 @@
 <% content_for :og_tags do %>
-<meta property="og:title" content="Movie rating results for '#{@search_term}'">
+<meta property="og:title" content="Movie rating results for <%= @search_term %>">
 <meta property="og:description" content="Crunching data from several big movie sites, giving you better movie ratings.">
 <meta property="og:url" content="<%= request.original_url %>">
 <meta property="og:site_name" content="filmcheck">

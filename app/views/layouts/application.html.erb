@@ -14,7 +14,7 @@
 <body>
 <div class="container main-container">
     <div class="push"></div>
-    <%= like_button(:href => '#{request.original_url}', :layout => :button_count) %>
+    <%= like_button(ENV['FB_APP_ID'], :href => '#{request.original_url}', :layout => :button_count) %>
     <!-- header -->
     <div class="header">
         <h1>filmcheck <small>movie ratings as they should be!</small></h1>
