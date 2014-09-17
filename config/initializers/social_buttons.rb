@@ -1,3 +1,3 @@
 SocialButtons.config do |social|
-    social.like.default_options = {:app_id => ENV['FB_APP_ID']}
+    social.like.default_options = {:appid => ENV['FB_APP_ID']}
 end
