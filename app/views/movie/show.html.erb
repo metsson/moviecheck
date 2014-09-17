@@ -1,4 +1,15 @@
 <% if @movie %>
+<% content_for :og_tags do %>
+<meta property="og:title" content="<%= @movie.title %>">
+<meta property="og:description" content="<%= @movie.plot %>">
+<meta property="og:url" content="<%= request.original_url %>">
+<% for actor in @movie.actors %>
+<meta property="og:video:actor" content="<%= actor.name %>">
+<% end %>
+<meta property="og:image" content="<%= @movie.poster %>">
+<meta property="og:site_name" content="filmcheck">
+<meta property="og:type" content="video.movie">
+<% end %>
 <% content_for :title, "Here's a better rating for '#{@movie.title} (#{@movie.year})' found on" %>
 
 <h2><%= @movie.title %> <small><%= @movie.year %></small></h2>
@@ -49,8 +60,9 @@
         </ul>
         <ul class="list-inline">
             <span class="btn btn-default disabled btn-sm">Spread the goodness</span>
-            <li><a href="#">facebook</a></li>
-            <li><a href="#">Twitter</a></li>
+            <li>
+                <%= like_button('appid', :href => '#{request.original_url}', :action => 'recommend') %>
+            </li>
         </ul>
     </div>
 </div>

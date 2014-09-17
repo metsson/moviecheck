@@ -6,12 +6,15 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="author" content="metsson">
+<%= yield(:og_tags) %>
+<%= csrf_meta_tags %>
 <%= stylesheet_link_tag    "application", media: "all" %>
 <link href='http://fonts.googleapis.com/css?family=Ubuntu:400,700' rel='stylesheet' type='text/css'>
-<%= csrf_meta_tags %>
 </head>
 <body>
 <div class="container main-container">
+    <div class="push"></div>
+    <%= like_button('appid', :href => '#{request.original_url}', :layout => :button_count) %>
     <!-- header -->
     <div class="header">
         <h1>filmcheck <small>movie ratings as they should be!</small></h1>
@@ -38,9 +41,6 @@
         </div>
         <!-- sidebar -->
         <div class="col-sm-4 pull-down">
-            <div class="alert alert-info share">
-                <h4>Do you like it in here?</h4>
-            </div>
             <div class="alert alert-warning">
                 <h4>The shitlist!</h4>
                 <p>We've made life a bit easier for you.

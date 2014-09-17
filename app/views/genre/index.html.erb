@@ -1,3 +1,10 @@
+<% content_for :og_tags do %>
+<meta property="og:title" content="Movies by genres">
+<meta property="og:description" content="List of movies by genres on filmcheck.">
+<meta property="og:url" content="<%= request.original_url %>">
+<meta property="og:site_name" content="filmcheck">
+<meta property="og:type" content="video.movie">
+<% end %>
 <% content_for :title, 'List of movies by genre on' %>
 <% content_for :page_header, "List of movies by genres" %>
 

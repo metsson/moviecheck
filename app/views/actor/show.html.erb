@@ -1,4 +1,12 @@
 <% if @actor %>
+<% content_for :og_tags do %>
+<meta property="og:title" content="Appearances for <%= @actor.name %>.">
+<meta property="og:description" content="Crunching data from several big movie sites, giving you better movie ratings.">
+<meta property="og:video:actor" content="<%= @actor.name %>">
+<meta property="og:url" content="<%= request.original_url %>">
+<meta property="og:site_name" content="filmcheck">
+<meta property="og:type" content="video.movie">
+<% end %>
 <h2>Appearances for <%= @actor.name %></h2>
 <div class="content">
     <div class="movie-listing">

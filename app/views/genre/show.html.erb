@@ -1,4 +1,12 @@
 <% if @movies %>
+<% content_for :og_tags do %>
+<meta property="og:title" content="All <%= @genre.genre.downcase %> movies.">
+<meta property="og:description" content="A list of <%= @genre.genre.downcase %> movies on filmcheck.">
+<meta property="og:url" content="<%= request.original_url %>">
+<meta property="og:site_name" content="filmcheck">
+<meta property="og:type" content="video.movie">
+<% end %>
+
 <% content_for :title, "#{@genre.genre} movies on" %>
 
 <h2>Showing <%= @genre.genre.downcase %> movies</h2>
