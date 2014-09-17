@@ -13,8 +13,7 @@ class Movie < ActiveRecord::Base
       @@movie = find_by_imdb(imdbID) || Movie.new
 
       # @todo expire cached data!
-      if @@movie.new_record? or @@movie.created_at.past?
-
+      if @@movie.new_record?
         api_data = JSON.parse open("http://www.omdbapi.com/?i=#{imdbID}&tomatoes=true&plot=full").read
 
 

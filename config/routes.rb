@@ -5,6 +5,7 @@ Moviecheck::Application.routes.draw do
   get 'movies/:title/:imdbid', to: 'movie#show', as: 'show_movie'
 
   # Links for top movies and so on
+  get 'movies/shitlist', to: 'movie#shitlist', as: 'shitlist'
 
   # Show all movies for given actor (also index)
   get 'actors/:name/:id', to: 'actor#show', as: 'appears_in'
@@ -16,4 +17,7 @@ Moviecheck::Application.routes.draw do
 
   # Used for search form but also SEO
   get 'search/:keyword', to: 'movie#search', as: 'search_movie'
+
+  # Misc
+  get 'pages/how-it-works', to: 'page#how_it_works', as: 'how_it_works'
 end

@@ -24,4 +24,9 @@ class MovieController < ApplicationController
         @search_term = params[:keyword]
         @results = JSON.parse open("http://www.omdbapi.com/?s='#{params[:keyword]}").read
     end
+
+    # /movies/shitlist (just for fun)
+    def shitlist
+        @movies = Movie.where('score < 5').order('score DESC').paginate(:page => params[:page], :per_page => 10)
+    end
 end

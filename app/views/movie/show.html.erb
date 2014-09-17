@@ -6,8 +6,8 @@
     <div class="movie-stats">
         <img src="<%= @movie.poster %>" class="img-responsive">
         <p>
-        <span class="points"><%= '%.1f' % @movie.score %></span> of 10. Average rating score by
-        <span class="voters"><%= @movie.voters %></span> users worldwide, <span class="safe"><%= @movie.probability %>%</span> safe.
+        <span class="points"><%= '%.1f' % @movie.score %><small> / 10</small></span> Based upon
+        <span class="voters"><%= number_with_delimiter(@movie.voters, :delimiter => ',') %></span> ratings worldwide. <%= @movie.probability %>% safe.
         </p>
     </div>
     <div class="moviecard-plot">
@@ -44,9 +44,8 @@
         <ul class="list-inline">
             <span class="btn btn-default disabled">Whats next</span>
             <li><a href="http://www.imdb.com/title/<%= @movie.imdb %>" target="_blank" class="btn btn-warning">IMDb</a></li>
-            <li><a href="#" class="btn btn-info">Trailers</a></li>
-            <li><a href="http://cdon.se/search?category=1769&amp;q=<%= @movie.title %>" target="_blank" class="btn btn-success">Own it</a></li>
-            <li><a href="http://www.netflix.com/Search?lnkctr=metss9002s&v1=<%= @movie.title %>" target="_blank" class="btn btn-danger">Netflix</a></li>
+            <li><a href="http://www.youtube.com/results?search_query=<%= @movie.title %> trailer" target="_blank" class="btn btn-info">Trailers</a></li>
+            <li><a href="http://www.amazon.com/gp/search?ie=UTF8&camp=1789&creative=9325&index=dvd&keywords=<%= @movie.title %>&linkCode=ur2&tag=filmcheckse-20&linkId=H25Z3OZXRK2TPB5X" target="_blank" class="btn btn-success">Own it</a></li>
         </ul>
         <ul class="list-inline">
             <span class="btn btn-default disabled btn-sm">Spread the goodness</span>
