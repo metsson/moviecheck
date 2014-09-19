@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140916193412) do
+ActiveRecord::Schema.define(version: 20140917160107) do
 
   create_table "actors", force: true do |t|
     t.string "name"
@@ -41,7 +41,10 @@ ActiveRecord::Schema.define(version: 20140916193412) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "voters"
-    t.string   "poster"
+    t.string   "poster_file_name"
+    t.string   "poster_content_type"
+    t.integer  "poster_file_size"
+    t.datetime "poster_updated_at"
   end
 
   add_index "movies", ["imdb"], name: "index_movies_on_imdb"

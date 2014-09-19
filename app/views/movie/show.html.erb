@@ -15,7 +15,7 @@
 <h2><%= @movie.title %> <small><%= @movie.year %></small></h2>
 <div class="content moviecard">
     <div class="movie-stats">
-        <img src="<%= @movie.poster %>" class="img-responsive">
+        <%= image_tag @movie.poster.url, :class => "img-responsive" %>
         <p>
         <span class="points"><%= '%.1f' % @movie.score %><small> / 10</small></span> Based upon
         <span class="voters"><%= number_with_delimiter(@movie.voters, :delimiter => ',') %></span> ratings worldwide. <%= @movie.probability %>% safe.

@@ -8,15 +8,15 @@ class MovieController < ApplicationController
 
     # movies/:title/:imdbid
     def show
-        begin
+        #begin
         @movie ||= Movie.get_rating!(params[:imdbid])
 
         if @movie
             @suggestions = Movie.where("title LIKE ? OR plot LIKE ?", "%#{@movie.title}%", "%#{@movie.plot}%").take(2)
         end
-        rescue
+        #rescue
             # Show (generic) error message in view
-        end
+        #end
     end
 
     # /search/:keyword

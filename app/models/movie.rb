@@ -8,12 +8,16 @@ class Movie < ActiveRecord::Base
     has_many :actors, :through => :casts
     has_many :genres, :through => :categorizations
 
+    attr_reader :poster_remote_url
+    has_attached_file :poster
+    validates_attachment_content_type :poster, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
+
     # Get cached data for given imdbID or re-generate from API
     def self.get_rating!(imdbID)
       @@movie = find_by_imdb(imdbID) || Movie.new
 
       # @todo expire cached data!
-      if @@movie.new_record?
+      if @@movie.new_record? or @@movie.created_at.past?
         api_data = JSON.parse open("http://www.omdbapi.com/?i=#{imdbID}&tomatoes=true&plot=full").read
 
 
@@ -21,7 +25,7 @@ class Movie < ActiveRecord::Base
           @@movie.imdb = api_data['imdbID']
           @@movie.title = api_data['Title']
           @@movie.year = api_data['Year']
-          @@movie.poster = api_data['Poster']
+          @@movie.poster = poster_remote_url(api_data['Poster'])
 
           if api_data['tomatoConsensus'] and api_data['tomatoConsensus'] != 'N/A'
             @@movie.plot = api_data['tomatoConsensus']
@@ -72,6 +76,7 @@ class Movie < ActiveRecord::Base
     end
 
   private
+    # Add up total amount of voters from gathered sites
     def self.set_number_of_voters(api_data)
       voters =
       [
@@ -104,5 +109,15 @@ class Movie < ActiveRecord::Base
           # eat
         end
       end
+    end
+
+  private
+    # Save image from url locally (paperclip)
+    def self.poster_remote_url(url_value)
+      @@movie.poster = URI.parse(url_value)
+      # Assuming url_value is http://example.com/photos/face.png
+      # avatar_file_name == "face.png"
+      # avatar_content_type == "image/png"
+      @poster_remote_url = url_value
     end
 end

@@ -28,6 +28,8 @@ gem 'rails_12factor'
 # Mostly for fb app_id
 gem 'figaro'
 
+gem 'paperclip'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
