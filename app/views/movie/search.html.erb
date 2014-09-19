@@ -1,3 +1,4 @@
+<% if @results %>
 <% content_for :og_tags do %>
 <meta property="og:title" content="Movie rating results for <%= @search_term %>">
 <meta property="og:description" content="Crunching data from several big movie sites, giving you better movie ratings.">
@@ -17,3 +18,12 @@
         <% end %>
     </div>
 </div>
+<% else %>
+<h2>No luck :(</h2>
+<div class="alert alert-info">
+<% if @search_term % %>
+    <p>Searching for '#{@search_term}'</p>
+<% end %>
+     <p>There were no results for your search, please try something new, or <% link_to 'see our top rated movies', root_path, :class => 'alert-link' %> for suggestions.</p>
+</div>
+<% end %>
