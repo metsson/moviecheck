@@ -22,8 +22,8 @@ class MovieController < ApplicationController
     # /search/:keyword
     def search
         @search_term = params[:keyword]
-        @url_friendly_term = "http://www.omdapi.com/?s=#{params[:keyword]}"
-        @results = JSON.parse open(@url_friendly_term).read
+        @search_query = {:s => params[:keyword]}.to_query
+        @results = JSON.parse open("http://www.omdapi.com/?#{@search_query}").read
     end
 
     # /movies/shitlist (just for fun)
