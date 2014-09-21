@@ -25,7 +25,6 @@ class Movie < ActiveRecord::Base
           @@movie.imdb = api_data['imdbID']
           @@movie.title = api_data['Title']
           @@movie.year = api_data['Year']
-          @@movie.poster = poster_remote_url(api_data['Poster'])
 
           if api_data['tomatoConsensus'] and api_data['tomatoConsensus'] != 'N/A'
             @@movie.plot = api_data['tomatoConsensus']
@@ -109,15 +108,5 @@ class Movie < ActiveRecord::Base
           # eat
         end
       end
-    end
-
-  private
-    # Save image from url locally (paperclip)
-    def self.poster_remote_url(url_value)
-      @@movie.poster = URI.parse(url_value)
-      # Assuming url_value is http://example.com/photos/face.png
-      # avatar_file_name == "face.png"
-      # avatar_content_type == "image/png"
-      @poster_remote_url = url_value
     end
 end
