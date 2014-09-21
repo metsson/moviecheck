@@ -20,4 +20,6 @@ Moviecheck::Application.routes.draw do
 
   # Misc
   get 'pages/how-it-works', to: 'page#how_it_works', as: 'how_it_works'
+
+  get '*path' => redirect('/')
 end

@@ -15,12 +15,17 @@ class MovieController < ApplicationController
             @suggestions = Movie.where("title LIKE ? OR plot LIKE ?", "%#{@movie.title}%", "%#{@movie.plot}%").take(2)
         end
         rescue
-            # Show (generic) error message in view
+            flash[:notice] = 'Well... that wasn\'t good news. The movie you asked for could not be fetched.'
+            redirect_to root_path
         end
     end
 
     # /search/:keyword
     def search
+        if params[:keyword].size < 2
+            flash[:notice] = 'Woah, your search keyword was way to short. Try something longer.'
+            redirect_to root_path
+        end
         @search_term = params[:keyword]
         @search_query = {:s => params[:keyword]}.to_query
         @results = JSON.parse open("http://www.omdbapi.com/?#{@search_query}").read
