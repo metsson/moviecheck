@@ -14,7 +14,7 @@
 <body>
 <div class="container main-container">
     <div class="push"></div>
-    <%= like_button("826169394083048", :href => '#{request.original_url}', :layout => :button_count) %>
+    <%= like_button("826169394083048", :href => request.original_url, :layout => :button_count) %>
     <!-- header -->
     <div class="header">
         <h1>filmcheck <small>movie ratings as they should be!</small></h1>
@@ -40,23 +40,25 @@
             <%= yield %>
         </div>
         <!-- sidebar -->
-        <div class="col-sm-4 pull-down">
-            <div class="alert alert-warning">
-                <h4>The shitlist!</h4>
-                <p>We've made life a bit easier for you.
-                Here's a list of movies you wouldn't want to
-                waste your time on.</p>
-                <p>
-                    <%= link_to 'Look it up', shitlist_path, :class => 'btn btn-success' %>
-                </p>
+        <aside>
+            <div class="col-sm-4 pull-down">
+                <div class="alert alert-warning">
+                    <h4>The shitlist!</h4>
+                    <p>We've made life a bit easier for you.
+                    Here's a list of movies you wouldn't want to
+                    waste your time on.</p>
+                    <p>
+                        <%= link_to 'Look it up', shitlist_path, :class => 'btn btn-success' %>
+                    </p>
+                </div>
+                <ul class="list-inline sidebar-list">
+                    <li><%= link_to 'Appearances', all_actors_path %></li>
+                    <li><%= link_to 'Genres', all_genres_path %></li>
+                    <li><%= link_to 'How it works', how_it_works_path %></li>
+                    <li><a href="http://metsson.se/">Made by metsson</a></li>
+                </ul>
             </div>
-            <ul class="list-inline sidebar-list">
-                <li><%= link_to 'Appearances', all_actors_path %></li>
-                <li><%= link_to 'Genres', all_genres_path %></li>
-                <li><%= link_to 'How it works', how_it_works_path %></li>
-                <li><a href="http://metsson.se/">Made by metsson</a></li>
-            </ul>
-        </div>
+        </aside>
         <!-- sidebar -->
     </div>
     <!-- main content -->
