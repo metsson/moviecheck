@@ -253,6 +253,23 @@ body {
     margin-bottom: 2px;
 }
 
+.shoutly {
+    background-color: rgba(16, 15, 15, 0.2) !important;
+    border-color: #000 !important;
+}
+
+.shoutly a,
+.shoutly a:hover, a:active, a:visited {
+    text-decoration: none;
+    color: #fff;
+}
+
+.shoutly-link {
+    text-transform: uppercase;
+    font-size: 10px;
+    text-align: right !important;
+}
+
 @media screen and (max-width: 720px) {
     body {
       background: url('jumbotron-bg.jpg') #fff no-repeat center 0 fixed;
