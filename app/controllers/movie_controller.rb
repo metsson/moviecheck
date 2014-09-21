@@ -23,7 +23,7 @@ class MovieController < ApplicationController
     # /search/:keyword
     def search
         if params[:keyword].size < 2
-            flash[:notice] = 'Woah, your search keyword was way to short. Try something longer.'
+            flash[:notice] = 'Sorry buddy, your search keyword was way too short. Try something longer.'
             redirect_to root_path
         end
         @search_term = params[:keyword]
